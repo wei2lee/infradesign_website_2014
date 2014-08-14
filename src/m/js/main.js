@@ -75,7 +75,15 @@ var delayHomeSliderStartAutoAfterPagerClick;
 var homeSlider;
 var homeSliderOption;
 var showcase360panorama;
-function initHome() {         
+function initHome() {        
+    /* header */
+    $("#mainContainer nav ul").slideUp(0);
+    $("#mainContainer nav .navbtn").click(function(evt){ console.log("slidetoggle");
+        $("#mainContainer nav ul").slideToggle(); 
+    });
+    
+    
+    
     /* sections */
     sections = $("#goSlider .section");
     $("#goContainer").fadeIn();
@@ -784,16 +792,24 @@ $(document).ready(function(){
             queryString: $.address.queryString()
         }));
     }).bind('change', function(event) {
-        log('change: ' + serialize(event, /parameters|parametersNames|path|pathNames|queryString|value/));
+        
         var names = $.map(event.pathNames, function(n) {
             return n.substr(0, 1).toUpperCase() + n.substr(1);
         }).concat(event.parameters.id ? event.parameters.id.split('.') : []);
         var links = names.slice();
         var match = links.length ? links.shift() + ' ' + links.join('.') : 'Home';
+        log('change: ' + serialize(event, /parameters|parametersNames|path|pathNames|queryString|value/) + ',m=' + match);
         $('a').each(function() {
-            $(this).toggleClass('selected', $(this).text() == match);
+            var linkPath = $(this).attr('href') || "";
+            if(linkPath.indexOf('#')==0){
+                linkPath = '/' + linkPath.substring(1);
+                $(this).toggleClass('selected', linkPath  == event.value);
+            }
         });
-        $.address.title([title].concat(names).join(' | '));
+        
+        
+        $.address.title(names.length == 1 ? names[0] : [title].concat(names).join(' | '));
+        
     });
     
     

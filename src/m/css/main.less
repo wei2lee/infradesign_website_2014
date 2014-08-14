@@ -23,6 +23,17 @@ body {
     color: rgb(106,85,66);
     .media-query-font-size(14px);
 }
+ul {
+    list-style-type: none;   
+}
+.disable-text-selection {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 #mainContainer {
     position: relative;
     background: url(../images/main_bg_full.jpg) center center no-repeat;
@@ -34,6 +45,78 @@ body {
         top: 0;
         z-index: 50;
         background-color: rgba(255,255,255,0.7);
+        
+        #header_2002 {
+            position:absolute;
+            left:14px;
+            top:11px;
+        }
+        
+        nav {
+            .disable-text-selection;
+            cursor:pointer;
+            width:65px;
+            height:42px;
+            position:absolute;
+            right:13px;
+            top:11px;
+            .navbtn {
+                background:transparent url(../images/header_nav.png) center center no-repeat;  
+                width:65px;
+                height:42px;
+            }
+            ul {
+                position:absolute;
+                width:300px;
+                margin:0;
+                padding:0;
+                right:-156px;
+                top:42px;
+                li {
+                    a {
+                        font-size:25px;
+                        display:inline-block;
+                        color:#fff;
+                        div {
+                            text-align:center;
+                            display:inline-block;
+                            background:transparent url(../images/header_nav_brown_btnbg_left.png) left top no-repeat;
+                            line-height:47px;
+                            .size(150px, 47px);
+                        }
+                        div:last-child {
+                            background:transparent url(../images/header_nav_brown_btnbg_right.png) left top no-repeat;
+                        }
+                        &:hover, &.selected {
+                            color:#695542;
+                            div {
+                                background-image:url(../images/header_nav_white_btnbg_left.png);
+                            }
+                            div:last-child {
+                                background-image:url(../images/header_nav_white_btnbg_right.png);
+                            }
+                        }
+                    }
+                    a.nav-goapp-link {
+                        div {
+                            background-image:url(../images/header_nav_green_btnbg_left.png);
+                        }
+                        div:last-child {
+                            background-image:url(../images/header_nav_green_btnbg_right.png);
+                        }
+                        &:hover, &.selected {
+                            color:#4bd3d4;
+                            div {
+                                background-image:url(../images/header_nav_white_btnbg_left.png);
+                            }
+                            div:last-child {
+                                background-image:url(../images/header_nav_white_btnbg_right.png);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     #footer {
         width: 100%;

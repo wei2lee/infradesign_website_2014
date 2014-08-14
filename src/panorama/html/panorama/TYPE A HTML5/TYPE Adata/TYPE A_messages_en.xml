@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano>
+
+<!-- ************************ -->
+<!--         Messages         -->
+<!-- ************************ -->
+
+  <data name="en_project_title"><![CDATA[New Project]]></data>
+
+
+
+  <data name="en_pano20_title"><![CDATA[Living room]]></data>
+
+
+  <data name="en_pano17_title"><![CDATA[Bedroom 1]]></data>
+
+
+  <data name="en_pano18_title"><![CDATA[Bedroom 2]]></data>
+
+
+  <data name="en_pano19_title"><![CDATA[Kitchen]]></data>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</krpano>

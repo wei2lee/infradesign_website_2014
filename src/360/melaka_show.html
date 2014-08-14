@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Melaka Show</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=0"/>
+		<style type="text/css"> html, body { width:1024px; height:707px; margin:0; background:#5c6367; overflow:hidden } </style>
+	</head>
+	<body>
+		<div id="container" style="width:1024px; height:707px"></div>
+		
+		<script type="text/javascript" src="pano2vr_player.js"></script>
+		<script type="text/javascript">
+			pano=new pano2vrPlayer("container");
+			panorama='<?xml version="1.0" encoding="UTF-8"?>';
+			panorama+='<tour start="node2">';
+			panorama+='  <panorama id="node1" hideabout="1">';
+			panorama+='    <view fovmode="0" pannorth="0">';
+			panorama+='      <start pan="259.5" fov="70" tilt="0"/>';
+			panorama+='      <min pan="0" fov="70" tilt="-180"/>';
+			panorama+='      <max pan="360" fov="70" tilt="180"/>';
+			panorama+='    </view>';
+			panorama+='    <userdata title="" datetime="2013:06:20 22:52:16" description="" copyright="" tags="" author="" source="" comment="" info="" longitude="" latitude=""/>';
+			panorama+='    <hotspots width="180" height="20" wordwrap="1">';
+			panorama+='      <label width="180" backgroundalpha="1" enabled="1" height="20" backgroundcolor="0xffffff" bordercolor="0x000000" border="1" textcolor="0x000000" background="1" borderalpha="1" borderradius="1" wordwrap="1" textalpha="1"/>';
+			panorama+='      <polystyle mode="0" backgroundalpha="0.2509803921568627" backgroundcolor="0x0000ff" bordercolor="0x0000ff" borderalpha="1"/>';
+			panorama+='      <hotspot title="Bedroom" target="" pan="139.739" skinid="" url="{node2}" id="Point01" tilt="4.63143"/>';
+			panorama+='    </hotspots>';
+			panorama+='    <media/>';
+			panorama+='    <input tile0url="images/living_room_o_1.jpg" prev5url="images/living_room_o_preview_6.jpg" prev4url="images/living_room_o_preview_5.jpg" prev3url="images/living_room_o_preview_4.jpg" prev2url="images/living_room_o_preview_3.jpg" prev1url="images/living_room_o_preview_2.jpg" prev0url="images/living_room_o_preview_1.jpg" tile5url="images/living_room_o_6.jpg" tilesize="1009" tile4url="images/living_room_o_5.jpg" tile3url="images/living_room_o_4.jpg" tilescale="1.009910802775025" tile2url="images/living_room_o_3.jpg" tile1url="images/living_room_o_2.jpg"/>';
+			panorama+='    <control simulatemass="1" lockedmouse="0" lockedkeyboard="1" dblclickfullscreen="0" invertwheel="0" lockedwheel="1" invertcontrol="1" speedwheel="1" sensitivity="12"/>';
+			panorama+='  </panorama>';
+			panorama+='  <panorama id="node2" hideabout="1">';
+			panorama+='    <view fovmode="0" pannorth="0">';
+			panorama+='      <start pan="57" fov="70" tilt="0"/>';
+			panorama+='      <min pan="0" fov="70" tilt="-180"/>';
+			panorama+='      <max pan="360" fov="70" tilt="180"/>';
+			panorama+='    </view>';
+			panorama+='    <userdata title="" datetime="2013:06:11 18:09:54" description="" copyright="" tags="" author="" source="" comment="" info="" longitude="" latitude=""/>';
+			panorama+='    <hotspots width="180" height="20" wordwrap="1">';
+			panorama+='      <label width="180" backgroundalpha="1" enabled="1" height="20" backgroundcolor="0xffffff" bordercolor="0x000000" border="1" textcolor="0x000000" background="1" borderalpha="1" borderradius="1" wordwrap="1" textalpha="1"/>';
+			panorama+='      <polystyle mode="0" backgroundalpha="0.2509803921568627" backgroundcolor="0x0000ff" bordercolor="0x0000ff" borderalpha="1"/>';
+			panorama+='      <hotspot title="Living Room" target="" pan="-176.385" skinid="" url="{node1}" id="Point01" tilt="-3.91585"/>';
+			panorama+='      <hotspot title="Bathroom" target="" pan="159.24" skinid="" url="{node3}" id="Point02" tilt="-4.96726"/>';
+			panorama+='    </hotspots>';
+			panorama+='    <media/>';
+			panorama+='    <input tile0url="images/bedroom_o_1.jpg" prev5url="images/bedroom_o_preview_6.jpg" prev4url="images/bedroom_o_preview_5.jpg" prev3url="images/bedroom_o_preview_4.jpg" prev2url="images/bedroom_o_preview_3.jpg" prev1url="images/bedroom_o_preview_2.jpg" prev0url="images/bedroom_o_preview_1.jpg" tile5url="images/bedroom_o_6.jpg" tilesize="1009" tile4url="images/bedroom_o_5.jpg" tile3url="images/bedroom_o_4.jpg" tilescale="1.009910802775025" tile2url="images/bedroom_o_3.jpg" tile1url="images/bedroom_o_2.jpg"/>';
+			panorama+='    <control simulatemass="1" lockedmouse="0" lockedkeyboard="1" dblclickfullscreen="0" invertwheel="0" lockedwheel="1" invertcontrol="1" speedwheel="1" sensitivity="12"/>';
+			panorama+='  </panorama>';
+			panorama+='  <panorama id="node3" hideabout="1">';
+			panorama+='    <view fovmode="0" pannorth="0">';
+			panorama+='      <start pan="121" fov="70" tilt="0"/>';
+			panorama+='      <min pan="0" fov="70" tilt="-180"/>';
+			panorama+='      <max pan="360" fov="70" tilt="180"/>';
+			panorama+='    </view>';
+			panorama+='    <userdata title="" datetime="2013:06:11 18:01:28" description="" copyright="" tags="" author="" source="" comment="" info="" longitude="" latitude=""/>';
+			panorama+='    <hotspots width="180" height="20" wordwrap="1">';
+			panorama+='      <label width="180" backgroundalpha="1" enabled="1" height="20" backgroundcolor="0xffffff" bordercolor="0x000000" border="1" textcolor="0x000000" background="1" borderalpha="1" borderradius="1" wordwrap="1" textalpha="1"/>';
+			panorama+='      <polystyle mode="0" backgroundalpha="0.2509803921568627" backgroundcolor="0x0000ff" bordercolor="0x0000ff" borderalpha="1"/>';
+			panorama+='      <hotspot title="Bedroom" target="" pan="128.383" skinid="" url="{node2}" id="Point01" tilt="0.393068"/>';
+			panorama+='    </hotspots>';
+			panorama+='    <media/>';
+			panorama+='    <input tile0url="images/bathroom_o_1.jpg" prev5url="images/bathroom_o_preview_6.jpg" prev4url="images/bathroom_o_preview_5.jpg" prev3url="images/bathroom_o_preview_4.jpg" prev2url="images/bathroom_o_preview_3.jpg" prev1url="images/bathroom_o_preview_2.jpg" prev0url="images/bathroom_o_preview_1.jpg" tile5url="images/bathroom_o_6.jpg" tilesize="1009" tile4url="images/bathroom_o_5.jpg" tile3url="images/bathroom_o_4.jpg" tilescale="1.009910802775025" tile2url="images/bathroom_o_3.jpg" tile1url="images/bathroom_o_2.jpg"/>';
+			panorama+='    <control simulatemass="1" lockedmouse="0" lockedkeyboard="1" dblclickfullscreen="0" invertwheel="0" lockedwheel="1" invertcontrol="1" speedwheel="1" sensitivity="12"/>';
+			panorama+='  </panorama>';
+			panorama+='</tour>';
+			panorama+='';
+			pano.readConfigString(panorama);
+			
+			var ua = navigator.userAgent;
+			if(ua.match(/iP/i) || ua.match(/Android/i))
+			{
+				var pan, tilt, offsetX = 0, offsetY = 0;
+				var auto = true, speed = 20, taskID = null;
+				window.ondeviceorientation = function(evt)
+				{
+					if(auto && parent.landscape)
+					{
+						pan = (evt.alpha + offsetX + 360) % 360;
+						tilt = (-evt.gamma - 90 + offsetY) % 360;
+						if(speed >= 20)
+						{
+							pano.setPanTilt(pan, tilt);
+						}
+						else
+						{
+							speed += 0.2;
+							pano.moveTo(pan, tilt, 70, speed);
+						}
+					}
+				};
+				window.ontouchstart = function()
+				{
+					if(taskID) clearTimeout(taskID);
+					auto = false;
+				};
+				window.ontouchend = function()
+				{
+					taskID = setTimeout(follow, 750);
+				};
+				window.onunload = function()
+				{
+					window.ondeviceorientation = null;
+					window.ontouchstart = null;
+					window.ontouchend = null;
+					window.onunload = null;
+				};
+				function follow()
+				{
+					clearTimeout(taskID);
+					offsetX = (offsetX + pano.getPan() - pan + 360) % 360;
+					offsetY = (offsetY + pano.getTilt() - tilt) % 360;
+					speed = 2;
+					auto = true;
+				}
+			}
+		</script>
+	</body>
+</html>

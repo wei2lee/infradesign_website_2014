@@ -1,0 +1,51 @@
+/* reset */
+
+
+/* Customized fonts */
+
+@font-face {
+    font-family:'av';
+    src: url('../css/fonts/avl.eot');
+    src: url('../css/fonts/avl.eot?#iefix') format('embedded-opentype'),
+         url('../css/fonts/avl.woff') format('woff'),
+         url('../css/fonts/avl.ttf') format('truetype'),
+         url('../css/fonts/avl.svg#av') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+
+@font-face {
+    font-family: 'din';
+    src: url('../css/fonts/DINPro-Light.eot');
+    src: local('☺'), 
+         url('../css/fonts/DINPro-Light.woff') format('woff'), 
+         url('../css/fonts/DINPro-Light.ttf') format('truetype'), 
+         url('../css/fonts/DINPro-Light.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+body { font-size:14px; font-family:'av',sans-serif; font-size:14px; color:#fff; }
+/* header */
+#header { width:100%; height:53px; position:absolute; top:0; z-index:50; background-color:rgba(255,255,255,0.7);}
+/* footer */
+#footer { width:100%; height:100px; position:absolute; bottom:0; z-index:51; }
+
+/* mainContent */
+#mainContainer { position:relative; background:url(../images/main_bg_full.jpg) center center no-repeat; background-size:cover; }
+.mainContent { height:100%; position:absolute; top:0; z-index:10; overflow:hidden; }
+.bigtitle { font-size:14px; font-weight:900; margin-bottom:12px; }
+.title { font-size:11px; font-weight:900; margin-bottom:12px; }
+.msg { font-size:9px; margin-bottom:6px; }
+.msglist { font-size:10px; margin-bottom:6px; }
+
+
+
+/* mainContent home */
+#home_slider { height:100%; }
+#home_slider ul { height:100%; margin-bottom:0px; }
+#home_slider li { height:100%; }
+.home_slider_content { height:100%; }
+#home_slider_content1 { background:url(../images/home_bg.jpg) center center no-repeat; background-size:cover; }
+#home_slider h1 { font-size:1.5em; line-height:1.14em; color:#fff; position:absolute; left:25px; bottom:65px; z-index:100; }
+#home_bg_bottom_dark { width:100%; height:175px; background:url(../images/home_bg_bottom_dark.png) left bottom repeat-x; position:absolute; bottom:0px; z-index:60; }
+/* mainContent ? */

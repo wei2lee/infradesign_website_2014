@@ -1,0 +1,242 @@
+html,
+body,
+button,
+input,
+select,
+textarea {
+    color:#695542;
+}
+
+body {
+	margin:0;
+	padding:0;
+	font-family:av, Arial;
+    font-size:14px;
+    line-height:1.45;
+	background:#c4bcb4;
+}
+
+::-moz-selection {
+	color:#fff;
+    background: #6b5543;
+    text-shadow: none;
+}
+
+::selection {
+	color:#fff;
+    background: #6b5543;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+img {
+	border:0;
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    resize:none;
+}
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+
+/* Customized fonts */
+
+@font-face {
+    font-family:'av';
+    src: url('fonts/avl.eot');
+    src: url('fonts/avl.eot?#iefix') format('embedded-opentype'),
+         url('fonts/avl.woff') format('woff'),
+         url('fonts/avl.ttf') format('truetype'),
+         url('fonts/avl.svg#av') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+
+
+/* Common styles */
+
+.fixed-bottom { position:fixed; bottom:0; top:auto }
+* html .fixed-bottom { position:absolute; bottom:auto; top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0))); }
+
+h1 { font-size:49px; line-height:55px }
+h2 { font-size:31px; line-height:39px }
+ul { margin:15px 0; padding:0 0 0 15px }
+li { list-style-image:url(../img/bullet.png) }
+p { text-align:justify }
+.text-field, .text-area { height:21px; line-height:21px; padding:2px 5px; border:1px solid #c6c1c3; background:none; overflow:hidden; border-radius:4px; -webkit-border-radius:4px; -moz-border-radius:4px }
+.text-area { height:auto }
+
+a { color:#695542; text-decoration:none; outline:none }
+a:hover, a.selected { color:#9d6f42 }
+
+.rollover { background-position:center top; background-repeat:no-repeat; display:inline-block; cursor:pointer; text-align:center }
+.rollover:hover, .rollover.selected { background-position:center bottom }
+
+.form-btn { width:160px; height:30px; margin-right:15px !important; line-height:33px; background-image:url(../img/round_btn.png) }
+
+
+/* Structure */
+
+#container { width:100%; min-width:1024px; min-height:640px; margin:0 auto; background:url(../img/bg.jpg) center repeat-y; position:relative }
+#content, #content-inner { width:1024px; margin:0 auto; display:table }
+#content-inner { height:100% }
+
+#header { width:100%; height:135px; background:url(../img/white_transp_70.png) center top; text-align:center; display:table }
+	#header-inner { width:1024px; height:98px; margin:0 auto; position:relative }
+	#logo { margin:20px 0 0 93px; float:left }
+	#nav { margin:0 0 0 50px; padding:0; display:table; float:left }
+		#nav li { margin:0 6px; list-style:none; list-style-type:none; float:left }
+		#nav li a { width:92px; height:25px; line-height:25px; padding:28px 0 5px; display:inline-block }
+		#nav li a.selected, #nav li a.current { color:#fff; background:url(../img/nav_selected.jpg) center top no-repeat }
+		#nav li ul { margin:0; padding:0; top:57px; position:absolute; z-index:100; display:none }
+		#nav li.selected ul { display:block }
+			#nav li li { margin:0 }
+			#nav li li a { width:auto; margin-right:26px; padding:2px 0; color:#888; background:none !important }
+			#nav li li a:hover, #nav li li a.selected, #nav li li a.current { color:#404040 }
+	#slogan { width:100%; font-size:16px; background:url(../img/slogan_bg.png) center repeat-x }
+
+#footer { width:100%; min-width:1024px; padding-bottom:10px; text-align:center }
+	#fb-btn, #tw-btn { padding:0 6px; margin-right:6px; float:right }
+	#fb-btn { width:12px; height:21px; background-image:url(../img/fb_btn.png) }
+	#tw-btn { width:26px; height:21px; margin-right:12px; background-image:url(../img/tw_btn.png) }
+	#fb-btn.bright { background-image:url(../img/fb_btn_bright.png) }
+	#tw-btn.bright { background-image:url(../img/tw_btn_bright.png) }
+
+.intro { text-align:center; background:#b8aea4 }
+	.intro #container { background:none }
+	.intro #content { height:640px; overflow:hidden }
+	.intro #enter-btn { width:200px; margin:10px auto 0; padding:7px 0; font-size:13px; display:none }
+
+.home #container { background:url(../img/home_bg.jpg) no-repeat; background-size:cover }
+	.home h1 { position:absolute; bottom:17px; right:250px; color:#fff; font-weight:normal }
+
+.roots #container { background:url(../img/roots_bg.jpg) center 135px no-repeat; background-size:cover }
+.roots.nd #container { background:url(../img/roots_bg_02.jpg) center 135px no-repeat; background-size:cover }
+.roots.rd #container { background:url(../img/roots_bg_03.jpg) center 135px no-repeat; background-size:cover }
+	.roots #content-inner { width:500px; margin-left:464px; margin-right:60px; background:url(../img/white_transp_70.png) }
+	.roots #content-inner div { width:442px; padding:32px 30px; background:#fff }
+
+.platforms #content-inner { padding:32px 0 0; text-align:center; display:table-cell; vertical-align:middle }
+	.platforms #content-inner a { margin:0 auto 32px; font-size:39px; display:table }
+
+.platform #content-inner { width:900px; padding:35px 112px 30px }
+	.platform #content-inner div { text-align:center }
+	.platform #content-inner img { margin:16px 0 }
+	.platform video { width:100%; height:350px; margin:14px 0; background:#000 }
+	.platform #links { width:716px; margin:9px auto 23px; display:table }
+	.platform h1 { margin:0 auto; font-size:39px; font-weight:normal }
+	.platform h2 { font-size:24px; margin:0 auto }
+
+.infratech #content-inner, .communication #content-inner { width:722px; padding:35px 199px 30px }
+	.infratech #links a { width:236px; height:272px; float:left }
+	.infratech #mob { background-image:url(../img/infratech_01.jpg) }
+	.infratech #ar { margin:0 4px; background-image:url(../img/infratech_02.jpg) }
+	.infratech #web { background-image:url(../img/infratech_03.jpg) }
+
+.gallery #left { width:746px; height:100%; padding:0 9px; background:#fff; text-align:center; float:left; position:relative }
+	.gallery #left img, .gallery #left iframe { width:100%; margin:9px 0 }
+	.gallery #left h3, .pav h3 { margin:0; text-align:right; right:12px; bottom:6px; position:absolute }
+	.gallery #left a { left:6px; bottom:0; padding:6px 15px 6px 6px; font-size:16px; position:absolute }
+.gallery #right { width:231px; margin-left:9px; padding:9px 9px 0; background:#fff; float:left }
+	.gallery #right img { width:100%; margin-bottom:9px; opacity:0.8; filter:alpha(opacity=80); cursor:pointer }
+	.gallery #right img:hover { opacity:1; filter:alpha(opacity=100) }
+	.gallery #right img.selected { display:none }
+
+.communication #links a { opacity:0.65; filter:alpha(opacity=65); float:left; display:block }
+	.communication #links a:hover { opacity:1; filter:alpha(opacity=100) }
+	.communication #cg { width:436px; height:314px; background:url(../img/communication_01.jpg); text-align:left }
+	.communication #vrt { width:272px; height:182px; margin-left:7px; background:url(../img/communication_02.jpg); text-align:left }
+	.communication #pav { width:272px; height:124px; margin:8px 0 0 7px; background:url(../img/communication_03.jpg); text-align:right }
+	.communication h2 { width:240px; margin:0 auto; font-size:17px; float:left }
+	.communication p { width:468px; margin:0 0 16px 10px; float:left }
+	.vrt #walkthrough, .vrt #tour { width:100%; margin:9px 0; display:none }
+		.vrt #left .selected { display:block }
+		.vrt #tour { height:600px; overflow:hidden }
+		.vrt #tour div { margin-top:-107px }
+		.vrt video { width:100%; height:420px; background:#000 }
+	.pav #content-inner { width:1006px; padding:0 9px; background:#fff; position:relative }
+		.pav #slider { width:1006px; height:498px; margin:9px 0 0; padding:0 }
+
+.folios #content { width:100% }
+	.folios #categories { margin-left:10px; position:relative; display:table }
+	.folios #categories div { position:absolute }
+	.folios #cat1 { width:295px; height:199px; background:#e7e3de }
+	.folios #cat2 { width:295px; height:274px; top:211px; background-image:url(../img/folios_01.jpg) }
+	.folios #cat3 { width:295px; height:157px; top:494px; background:#e7e3de }
+	.folios #cat4 { width:330px; height:316px; left:303px; background-image:url(../img/folios_02.jpg) }
+	.folios #cat5 { width:218px; height:326px; left:303px; top:325px; background:#b4a59a }
+	.folios #cat6 { width:302px; height:326px; left:530px; top:325px; background-image:url(../img/folios_03.jpg) }
+	.folios #cat7 { width:190px; height:316px; left:642px; background:#e1dad6 }
+	.folios #cat8 { width:393px; height:411px; left:840px; background-image:url(../img/folios_04.jpg) }
+	.folios #cat9 { width:249px; height:232px; left:840px; top:419px; background-image:url(../img/folios_05.jpg) }
+	.folios #cat10 { width:135px; height:232px; left:1098px; top:419px; background:#e1dad6 }
+	.folios #cat11 { width:222px; height:316px; left:1241px; background:#b4a59a }
+	.folios #cat12 { width:359px; height:326px; left:1241px; top:325px; background-image:url(../img/folios_06.jpg) }
+	.folios #cat13 { width:128px; height:316px; left:1472px; background:#e7e3de }
+	#galleries { width:1024px; position:absolute; z-index:99; display:none }
+		#galleries .gallery { height:100%; display:none }
+		#galleries .gallery.selected { display:block }
+		#galleries #left, #galleries #right { box-shadow:0 0 20px #666 }
+		.gallery#comm #left, .gallery#pack #left { width:1006px }
+
+.crew h2 { text-align:center }
+.crew #profiles { display:table; position:relative }
+	#profiles div { float:left; position:relative; overflow:visible }
+	#profiles .others { opacity:0.4; filter:alpha(opacity=40) }
+	#profiles span { padding:19px 17px; background:#fff; line-height:19px; pointer-events:none; display:none; position:absolute; z-index:99 }
+	#profiles div:hover span { display:table }
+		#profiles span strong { font-size:15px; display:block }
+		#profiles span em { margin-bottom:11px; display:block }
+	#profiles #p1 { width:262px; height:498px; background:url(../img/crew_01.jpg) }
+	#profiles #p2 { width:268px; height:292px; background:url(../img/crew_02.jpg); margin-left:8px }
+	#profiles #p3 { width:268px; height:198px; background:url(../img/crew_03.jpg); left:270px; top:300px; position:absolute }
+	#profiles #p4 { width:265px; height:498px; background:url(../img/crew_04.jpg); margin-left:8px }
+	#profiles #p5 { width:204px; height:162px; background:url(../img/crew_05.jpg); margin-left:8px }
+	#profiles #p6 { width:204px; height:328px; background:url(../img/crew_06.jpg); margin:8px 0 0 8px }
+		#profiles #p1 span { width:234px; left:270px }
+		#profiles #p2 span { width:234px; top:297px }
+		#profiles #p3 span { width:443px; left:276px }
+		#profiles #p4 span { width:170px; left:273px }
+		#profiles #p5 span { width:170px; top:167px }
+		#profiles #p6 span { width:231px; left:-273px }
+
+.contact #top { width:100%; height:520px }
+.contact #middle { margin-top:30px; font-size:15px }
+	.contact #middle div { width:341px; text-align:center; display:table-cell }
+	.contact #middle h2 { margin:3px 0 10px }
+	.contact #middle span { margin:0 auto; display:table }
+	.contact #middle strong { text-align:left; display:block; float:left; clear:left }
+	.contact #middle em { max-width:168px; margin-left:16px; font-style:normal; text-align:left; float:left }
+	.contact #middle a { font-style:italic }
+.contact #bottom { margin:45px 0 }
+	.contact #bottom h2 { margin:0 0 17px; text-align:center }
+	#form { width:946px; padding:30px 30px 10px; background:#fff; border:8px solid #cfcbca; box-shadow:4px 2px 10px #919194 }
+		#form img { float:right }
+		#form .group { margin:5px 0 25px; display:table }
+		#form .group div { margin-right:45px; display:table-cell; float:left }
+		#form h3 { margin:0 0 10px }
+		#form span { width:75px; display:block; float:left; clear:left }
+		#form .text-field { width:265px; margin-bottom:8px; float:left }
+		#form .text-area { width:790px; height:147px; margin-bottom:15px }
+		#form #feedback { width:800px; margin:10px 0 0 !important; color:#e00; font-size:13px }

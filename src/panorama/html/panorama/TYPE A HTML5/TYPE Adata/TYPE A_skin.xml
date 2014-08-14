@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krpano version="1.17">
+
+    
+  <!-- Spot Style - WAI Point Spot Style 1 1 -->
+  <style name="IconWAIPointSpotStyle11"
+         url="%FIRSTXML%/spots/point_2_user_user_user_defaultpoint000.gif"
+         visible="false"
+         alpha="0.8"
+         onhover="onhoverIconWAIPointSpotStyle11"
+         onover="onoverIconWAIPointSpotStyle11"
+         onout="onoutIconWAIPointSpotStyle11"
+         height="40"
+         width="40"
+         />
+  <action name="onhoverIconWAIPointSpotStyle11">
+    showtooltip(hotspot);
+  </action>
+  <action name="onoverIconWAIPointSpotStyle11">
+tween(scale, 1.2);
+tween(alpha, 1);
+
+  </action>
+  <action name="onoutIconWAIPointSpotStyle11">
+    hideTooltip();
+tween(scale, 1);
+tween(alpha, 0.8);
+
+  </action>
+
+</krpano>

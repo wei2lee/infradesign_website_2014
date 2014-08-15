@@ -11,49 +11,84 @@
 
   </head>
   <body>
-      
-      <form class="form-horizontal" role="form">
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"> Remember me
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Sign in</button>
-    </div>
-  </div>
-</form>
-      
-
-                <form role="form" class="form-horizontal">
-                    <div class="form-group"><label class="col-sm-2 control-label" for="inputEm" required>Emai</label><div class="col-sm-10"><input type="email" class="form-control" id="inputEm"></div></div>
-                    <div class="form-group"><label class="control-label col-sm-2" for="cu_name" required>Name</label><div class="col-sm-10"><input type="text"  class="form-control" id="cu_name"></div></div>
-                    <div class="form-group"><label class="control-label" for="cu_company" class="">Company</label><div class="form-control"><input type="text" id="cu_company"></input></div></div>
-                    <div class="form-group"><label class="control-label" for="cu_contact" required class="">Contact</label><div class="form-control"><input type="text" id="cu_contact"></input></div></div>
-                    <div class="form-group"><label class="control-label" for="cu_email" required class="">Email</label><div class="form-control"><input type="text" id="cu_email"></input></div></div>
-                    <div class="form-group"><label class="control-label" for="cu_startdate" class="">Start date</label><div class="form-control"><input type="text" id="cu_startdate"></input></div></div>
-                    <div class="form-group"><label class="control-label" for="cu_budget" class="">Budget</label><div class="form-control"><input type="text" id="cu_budget"></input></div></div>
-                    <div class="form-group"><label class="control-label" for="cu_message" required class="">Message</label><div class="form-control"><textarea type="text" id="cu_message"></textarea></div></div>
-                </form>
 
   </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="js/vendor/bootstrap.js"></script>
 </html>
+
+<script>
+var extendObj = function(childObj, parentObj) {
+    childObj.prototype = parentObj.prototype;
+};
+    
+function Person() {
+    return this;   
+}
+Person.prototype = {
+    walk : function(){
+        console.log('walk');   
+    },
+    printProto : function() {
+        //console.log(this.__proto__ + ',' + this.constructor.name);   
+    }
+}
+    
+Student.prototype = Object.create(Person.prototype);
+function Student() {
+    return this;   
+}
+Student.prototype.jump = function(){
+    console.log('jump');   
+}
+    
+
+function HighStudent() {
+    return this;   
+}
+HighStudent.prototype = $.extend(Object.create(Student.prototype), {
+    run : function(){
+        console.log('run');   
+    },
+    walk : function(){
+        Student.prototype.walk.call(this);
+        console.log('walk!!');  
+    }
+});
+
+
+var hs = new HighStudent();
+hs.walk();
+hs.jump();
+hs.run();
+    
+new Person().printProto();
+new Student().printProto();
+new HighStudent().printProto();
+    
+console.log(Person.prototype);
+console.log(Student.prototype);
+console.log(HighStudent.prototype);
+   
+
+console.log(new Person().__proto__);
+console.log(new Student().__proto__);
+console.log(new HighStudent().__proto__);
+    
+console.log(new Person().prototype);
+console.log(new Student().prototype);
+console.log(new HighStudent().prototype);
+    
+console.log(new HighStudent() instanceof Person);
+console.log(new Student() instanceof Person);
+console.log(new Person() instanceof Person);
+    
+console.log(new HighStudent() instanceof Student);
+console.log(new Student() instanceof Student);
+console.log(new Person() instanceof Student);
+    
+console.log(new HighStudent() instanceof HighStudent);
+console.log(new Student() instanceof HighStudent);
+console.log(new Person() instanceof HighStudent);
+    
+</script>

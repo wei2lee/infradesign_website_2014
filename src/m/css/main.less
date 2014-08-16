@@ -68,14 +68,14 @@ ul {
             }
             ul {
                 position:absolute;
-                width:300px;
                 margin:0;
                 padding:0;
-                right:-156px;
+                right:-10px;
                 top:42px;
                 li {
                     a {
                         font-size:25px;
+                        width:156px;
                         display:inline-block;
                         color:#fff;
                         div {
@@ -87,6 +87,7 @@ ul {
                         }
                         div:last-child {
                             background:transparent url(../images/header_nav_brown_btnbg_right.png) left top no-repeat;
+                            .size(6px, 47px);
                         }
                         &:hover, &.selected {
                             color:#695542;
@@ -825,7 +826,10 @@ ul {
                 background-color: #fff;
                 opacity: 0.0;
                 pointer-events: none;
-                .transition(opacity 0.1s ease-out);
+                .transition(opacity 0.2s ease-out);
+            }
+            .title {
+                margin-bottom:0px;   
             }
         }
         > div.others {
@@ -842,7 +846,7 @@ ul {
         }
     }
 }
-#folio {
+#folios {
     .folios_page {
         position: absolute;
         display: block;
@@ -861,7 +865,7 @@ ul {
                 .transition(opacity 0.3s ease-out);
                 .opacity(1);
                 &:hover {
-                    .opacity(1);
+                    .opacity(0);
                 }
             }
         }

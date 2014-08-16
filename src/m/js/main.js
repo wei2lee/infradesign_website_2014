@@ -72,7 +72,6 @@ Controller.prototype = {
     },
     onShown : function() {},
     onHide : function() { 
-        $(window).off('resize', this._onResize);
     },
     onHidden : function() {},
     onResize : function() {},
@@ -81,7 +80,6 @@ Controller.prototype = {
   
 function SliderContentController(sel, pathNames){
     this.sliderOption = $.extend({}, contentSliderOption);
-    this.sliderOption.onSlideAfter = this.onSlideAfter;
 }
 SliderContentController.prototype = $.extend(Object.create(Controller.prototype), {
     _base_proto : Controller.prototype,
@@ -92,9 +90,7 @@ SliderContentController.prototype = $.extend(Object.create(Controller.prototype)
             var toslide = this.subadrs.indexOf(value);
             if(toslide >= 0) this.slider.goToSlide(toslide);   
         }
-    },
-    onSlideAfter : function($slideElement, oldIndex, newIndex){ 
-        $.address.value($slideElement.data('_this').subadrs[newIndex]);
+        return ret;
     },
     onSliderKeyDown : function onSliderKeyDown(evt){
         if(!keyNavEnable)return;
@@ -112,17 +108,13 @@ SliderContentController.prototype = $.extend(Object.create(Controller.prototype)
                 break;
         }
     },
-    processPathNames : function(pathNames, value){
-        var ret = this._base_proto.processPathNames.call(this, pathNames, value);
-        if(ret){
-            var toslide = this.subadrs.indexOf(value);
-            if(toslide >= 0) this.slider.goToSlide(toslide);   
-        }
-    },
     onLoad : function() {
+        var _this = this;
         this._base_proto.onLoad.call(this);  
+        this.sliderOption.onSlideAfter =  function($slideElement, oldIndex, newIndex){ 
+            $.address.value(_this.subadrs[newIndex]);
+        };
         this.slider = $(this.slidersel).bxSlider(this.sliderOption);
-        this.slider.data('_this', this);
         this.slider.goToSlide(0, 'reset');
     },
     onShow : function() {
@@ -147,61 +139,292 @@ SliderContentController.prototype = $.extend(Object.create(Controller.prototype)
 });
 
 function AboutController(sel, pathNames){
-    this.sliderOption = $.extend({}, contentSliderOption);
-    this.sliderOption.onSlideAfter = this.onSlideAfter;
     this.sel = '#mainContainer #about';
     this.pathNames = 'about';
     this.slidersel = '#about .slider';
     this.subadrs = ['/about/what-define-us', '/about/what-we-do', '/about/how-we-work'];
     this.subsels = ['#what-define-us', '#what-we-do', '#how-we-work'];
+    this.sliderOption = $.extend({}, contentSliderOption);
     return this;
 }
-AboutController.prototype = $.extend(Object.create(SliderContentController.prototype), {
-    
-});
-
+AboutController.prototype = $.extend(Object.create(SliderContentController.prototype), {});
 
 function PlatformController(sel, pathNames){
-    this.sliderOption = $.extend({}, contentSliderOption);
-    this.sliderOption.onSlideAfter = this.onSlideAfter;
     this.sel = '#mainContainer #platform';
     this.pathNames = 'platform';
     this.slidersel = '#platform .slider';
     this.subadrs = ['/platform/branding', '/platform/web-development', '/platform/integrated-communication'];
     this.subsels = ['#platform-branding', '#platform-web-development', '#platform-integrated-communication'];
+    this.sliderOption = $.extend({}, contentSliderOption);
     return this;
 }
-PlatformController.prototype = $.extend(Object.create(SliderContentController.prototype), {
-    
+PlatformController.prototype = $.extend(Object.create(SliderContentController.prototype), {});
+
+function FoliosController(sel, pathNames){
+    this.sel = '#mainContainer #folios';
+    this.pathNames = 'folios';
+    return this;
+}
+FoliosController.prototype = $.extend(Object.create(Controller.prototype), {
+    _base_proto : Controller.prototype,
+    onLoad : function() {
+        /*folios*/
+        var foliosanim1delay = new TimelineMax({paused:true});
+        var foliosanim1 = new TimelineMax({paused:true});
+        var foliosanim2delay = new TimelineMax({paused:true});
+        var foliosanim2 = new TimelineMax({paused:true});
+        var total = $(".folios_page>div").length;
+        var loaded = 0;
+
+       function preloadFoliosImage() {
+           if(total == loaded){
+               startFoliosAnimation();
+                return;   
+           }
+
+            var imgs = [];
+            $(".folios_page>div").each(function(ind,ele){
+                var backgroundimage = $(ele).css('background-image');
+                var reg = /url\((.+?)\)/;
+                var m = reg.exec(backgroundimage);
+                var img = new Image();
+                var _this = $(this);
+
+                img.onload = function() {
+                    loaded++;
+                    imgs.push({'ele':_this, 'img':img});
+                    if(loaded >= total){
+                        onPreloadedFoliosImage(imgs);
+                    }
+                }
+                img.src = m[1];
+            });   
+        }
+        function onPreloadedFoliosImage(imgs) {
+
+            $.each(imgs, function(ind,preloadobj){
+                var obj = Filters.filterImage(Filters.grayscale, preloadobj.img);
+
+                //preloadobj.ele.css('width', parseInt(preloadobj.ele.css('width')) + 1 + 'px');
+                //preloadobj.ele.css('height', parseInt(preloadobj.ele.css('height')) + 1 + 'px');
+                var style = "left:0px; top:0px; width:"+preloadobj.ele.css('width')+"; height:"+preloadobj.ele.css('height')+"; background-image:url("+obj.canvas.toDataURL("image/png")+")";
+                preloadobj.ele.empty();
+                preloadobj.ele.append($("<div class='grayscale' style='"+style+"';></div>"));
+            });//*/
+            startFoliosAnimation();
+        }
+        function startFoliosAnimation() {
+            var isinitcycle = true;
+            var pagedelay = 2;
+            var pagedelay2 = 1.5;
+            var alphatweendelay = 0.1;
+            var randomdelayk = 0.3;
+            var tweenduration = 0.7;
+            var leftdelayk = 0.0040;
+            var pagewidth = 320;
+
+
+            TweenMax.to($(".folios_page"), 0, {perspective:2000});
+
+            foliosanim1delay.insert(TweenMax.to({x:0}, pagedelay, {x:0}));
+            foliosanim1delay.append(TweenMax.delayedCall(0, function(){
+                console.log("foliosanim1.restart");
+                foliosanim1.restart();
+            }));
+
+            foliosanim1.insert(TweenMax.delayedCall(0, function(){ 
+                console.log("foliosanim1 started");
+                $("#folios_page1").show(); 
+                $("#folios_page1").css("pointer-events", "visible");
+                $("#folios_page2").css("pointer-events", "none");
+                if(isinitcycle){
+                    TweenMax.set($("#folios_page2>div"), {alpha:0});
+                    TweenMax.set($("#folios_page1>div"), {alpha:0});
+                }
+                $("#folios_page2>div").unbind('mouseover mouseout');
+                $("#folios_page2").unbind('mouseover mouseout'); 
+            }));
+            $("#folios_page2>div").each(function(ind,ele){
+                var left = parseInt($(ele).css('left'));
+                var randomdelay = Math.random() * randomdelayk;
+                foliosanim1.insert(TweenMax.fromTo($(ele), tweenduration, {alpha:1}, {alpha:0}), (pagewidth-left)*leftdelayk + randomdelay + alphatweendelay);
+                foliosanim1.insert(TweenMax.fromTo($(ele), tweenduration, {rotationY:0}, {rotationY:-180, transformOrigin:"center center"}), (pagewidth-left)*leftdelayk + randomdelay);
+            });
+
+            $("#folios_page1>div").each(function(ind,ele){
+                var left = parseInt($(ele).css('left'));
+                var randomdelay = Math.random() * randomdelayk;
+                foliosanim1.insert(TweenMax.fromTo($(ele), tweenduration, {alpha:0}, {alpha:1, ease:Quad.easeIn}), pagedelay2 + 0.5 + left*leftdelayk + randomdelay + alphatweendelay);
+                foliosanim1.insert(TweenMax.fromTo($(ele), tweenduration, {rotationY:-200}, {rotationY:0, transformOrigin:"center center"}), pagedelay2 + 0.5 + left*leftdelayk + randomdelay);
+            });
+            foliosanim1.append(TweenMax.delayedCall(0, function(){
+                console.log("foliosanim2delay restart");
+                foliosanim2delay.restart();
+                $("#folios_page1>div").hover(function(){
+                        foliosanim2delay.pause();
+                });
+                $("#folios_page1").hover(
+                    function(){
+                        foliosanim2delay.pause();
+                    }, 
+                    function(){
+                        foliosanim2delay.resume();
+                    }
+                );
+            }));
+
+            foliosanim2delay.insert(TweenMax.to({x:0}, pagedelay, {x:0}));
+            foliosanim2delay.append(TweenMax.delayedCall(0, function(){
+                console.log("foliosanim2 restart");
+                foliosanim2.restart();
+            }));
+
+            foliosanim2.insert(TweenMax.delayedCall(0, function(){ 
+                console.log("foliosanim2 started");
+                $("#folios_page2").show(); 
+                $("#folios_page1").css("pointer-events", "none");
+                $("#folios_page2").css("pointer-events", "visible");
+                $("#folios_page1>div").unbind('mouseover mouseout');
+                $("#folios_page1").unbind('mouseover mouseout');
+            }));
+            $("#folios_page1>div").each(function(ind,ele){
+                var left = parseInt($(ele).css('left'));
+                var randomdelay = Math.random() * randomdelayk;
+                foliosanim2.insert(TweenMax.fromTo($(ele), tweenduration, {alpha:1}, {alpha:0}), left*leftdelayk + randomdelay + alphatweendelay);
+                foliosanim2.insert(TweenMax.fromTo($(ele), tweenduration, {rotationY:0}, {rotationY:180, transformOrigin:"center center"}), left*leftdelayk + randomdelay);
+            });
+
+            $("#folios_page2>div").each(function(ind,ele){
+                var left = parseInt($(ele).css('left'));
+                var randomdelay = Math.random() * randomdelayk;
+                foliosanim2.insert(TweenMax.fromTo($(ele), tweenduration, {alpha:0}, {alpha:1, ease:Quad.easeIn}), pagedelay2 + (pagewidth-left)*leftdelayk + randomdelay + alphatweendelay);
+                foliosanim2.insert(TweenMax.fromTo($(ele), tweenduration, {rotationY:200}, {rotationY:0, transformOrigin:"center center"}), pagedelay2 + (pagewidth-left)*leftdelayk + randomdelay);
+            });
+
+            foliosanim2.append(TweenMax.delayedCall(0, function(){
+                console.log("foliosanim1delay restart");
+                isinitcycle = false;
+                foliosanim1delay.restart();
+                $("#folios_page2>div").hover(function(){
+                    foliosanim1delay.pause();
+                });
+                $("#folios_page2").hover(
+                    function(){
+                        console.log("folios_page2 hover");
+                        foliosanim1delay.pause();
+                    }, 
+                    function(){
+                        console.log("folios_page2 hover");
+                        foliosanim1delay.resume();
+                    }
+                );
+            }));
+
+            foliosanim1.restart();
+        }
+        function stopFoliosAnimation() {
+            foliosanim1delay.kill();
+            foliosanim1.kill();
+            foliosanim2delay.kill();
+            foliosanim2.kill();
+        }
+        FoliosController.prototype.onShow = function(){
+            this._base_proto.onShow.call(this);  
+            preloadFoliosImage();
+        };
+        FoliosController.prototype.onHide = function(){
+            stopFoliosAnimation();
+        };
+    }
 });
 
+function CrewController(sel, pathNames){
+    this.sel = '#mainContainer #crew';
+    this.pathNames = 'crew';
+    return this;
+};
+CrewController.prototype = $.extend(Object.create(Controller.prototype), {
+    _base_proto : Controller.prototype,
+    onLoad : function() {
+        var highlightCrewIndex = -1;
+        var $crew = $('#crew1,#crew2,#crew3,#crew4,#crew5,#crew6');
+        $crew.each(function(ind,ele){
+            $detail = $(this).find('.crewDetail');
+            if($detail.length == 0){
+                $(this).click(function(){
+                    setHighlightCrew(-1);
+                });
+            }else{
+                $(this).click(function(){
+                    var index = parseInt($(this).attr('id').substring(4));
+                    var top = $(this).position().top;
+                    setHighlightCrew(index-1);
+                    //$('#crew').stop(true).animate({scrollTop:top},500);
+                });
+            }
+        });
+
+        function setHighlightCrew(index,a){
+            highlightCrewIndex = index;
+            $crew.each(function(ind,ele){
+                if(index!=-1){
+                    if(ind==index){
+                        $(this).addClass('selected');
+                        $(this).removeClass('others');
+
+                    }else{
+                        $(this).removeClass('selected');
+                        $(this).addClass('others');
+                    }
+                }else{
+                    $(this).removeClass('selected');
+                    $(this).removeClass('others');
+                }
+            });
+        }   
+    }
+});
+function ContactController(sel, pathNames){
+    this.sel = '#mainContainer #contact';
+    this.pathNames = 'contact';
+    return this;
+}
+ContactController.prototype = $.extend(Object.create(Controller.prototype), {
+
+
+});
+
+
+
 var controllers = {
-    about:new AboutController('#mainContainer #about', 'about'),
-    platform:new PlatformController('#mainContainer #platform', 'platform'),
-    folios:new Controller('#mainContainer #folios', 'folios'),
-    crew:new Controller('#mainContainer #crew', 'crew'),
-    contact:new Controller('#mainContainer #contact', 'contact'),
+    about:new AboutController(),
+    platform:new PlatformController(),
+    folios:new FoliosController(),
+    crew:new CrewController(),
+    contact:new ContactController(),
     goapp:new Controller('#mainContainer #home', 'goapp')
 };
 //*/
 
 
 $(document).ready(function(){
+    $("#mainContainer nav ul").slideUp(0);
+    $("#mainContainer nav .navbtn").click(function(evt){
+        var hidden = $("#mainContainer nav ul").is(":hidden"); 
+        if(hidden){
+            $("#mainContainer nav ul").slideDown(0); 
+        }else{
+            $("#mainContainer nav ul").slideUp(0);    
+        }
+    });
+    $("#mainContainer nav a").click(function(evt){
+       $("#mainContainer nav ul").slideUp(0);   
+    });
+
+
+    
     function initHome() {        
         /* header */
-        $("#mainContainer nav ul").slideUp(0);
-        $("#mainContainer nav .navbtn").click(function(evt){
-            var hidden = $("#mainContainer nav ul").is(":hidden"); 
-            if(hidden){
-                $("#mainContainer nav ul").slideDown(); 
-            }else{
-                $("#mainContainer nav ul").slideUp(200);    
-            }
-        });
-        $("#mainContainer nav a").click(function(evt){
-           $("#mainContainer nav ul").slideUp(100);   
-        });
-
 
 
         /* sections */
@@ -618,217 +841,12 @@ $(document).ready(function(){
     
     /*home*/
     initHome();
-    /*about*/
-    controllers.about.onLoad();
-    /*platform*/
-    controllers.platform.onLoad();
-    /*crew*/
-    var highlightCrewIndex = -1;
-    var $crew = $('#crew1,#crew2,#crew3,#crew4,#crew5,#crew6');
-    $crew.each(function(ind,ele){
-        $detail = $(this).find('.crewDetail');
-        if($detail.length == 0){
-            $(this).click(function(){
-                setHighlightCrew(-1);
-            });
-        }else{
-            $(this).click(function(){
-                var index = parseInt($(this).attr('id').substring(4));
-                var top = $(this).position().top;
-                setHighlightCrew(index-1);
-                //$('#crew').stop(true).animate({scrollTop:top},500);
-            });
-        }
+    
+    
+    
+    $.each(controllers, function(ind,controller){
+        controller.onLoad();
     });
-    
-    function setHighlightCrew(index,a){
-        highlightCrewIndex = index;
-        $crew.each(function(ind,ele){
-            if(index!=-1){
-                if(ind==index){
-                    $(this).addClass('selected');
-                    $(this).removeClass('others');
-                    
-                }else{
-                    $(this).removeClass('selected');
-                    $(this).addClass('others');
-                }
-            }else{
-                $(this).removeClass('selected');
-                $(this).removeClass('others');
-            }
-        });
-    }
-    /*folios*/
-    var foliosanim1delay = new TimelineMax({paused:true});
-    var foliosanim1 = new TimelineMax({paused:true});
-    var foliosanim2delay = new TimelineMax({paused:true});
-    var foliosanim2 = new TimelineMax({paused:true});
-    var total = $(".folios_page>div").length;
-    var loaded = 0;
-    
-   function preloadFoliosImage() {
-       if(total == loaded){
-           startFoliosAnimation();
-            return;   
-       }
-       
-        var imgs = [];
-        $(".folios_page>div").each(function(ind,ele){
-            var backgroundimage = $(ele).css('background-image');
-            var reg = /url\((.+?)\)/;
-            var m = reg.exec(backgroundimage);
-            var img = new Image();
-            var _this = $(this);
-
-            img.onload = function() {
-                loaded++;
-                imgs.push({'ele':_this, 'img':img});
-                if(loaded >= total){
-                    onPreloadedFoliosImage(imgs);
-                }
-            }
-            img.src = m[1];
-        });   
-    }
-    function onPreloadedFoliosImage(imgs) {
-
-        $.each(imgs, function(ind,preloadobj){
-            var obj = Filters.filterImage(Filters.grayscale, preloadobj.img);
-            
-            //preloadobj.ele.css('width', parseInt(preloadobj.ele.css('width')) + 1 + 'px');
-            //preloadobj.ele.css('height', parseInt(preloadobj.ele.css('height')) + 1 + 'px');
-            var style = "left:0px; top:0px; width:"+preloadobj.ele.css('width')+"; height:"+preloadobj.ele.css('height')+"; background-image:url("+obj.canvas.toDataURL("image/png")+")";
-            preloadobj.ele.empty();
-            preloadobj.ele.append($("<div class='grayscale' style='"+style+"';></div>"));
-        });//*/
-        startFoliosAnimation();
-    }
-    function startFoliosAnimation() {
-        var isinitcycle = true;
-        var pagedelay = 2;
-        var pagedelay2 = 1.5;
-        var alphatweendelay = 0.1;
-        var randomdelayk = 0.3;
-        var tweenduration = 0.7;
-        var leftdelayk = 0.0040;
-        var pagewidth = 320;
-
-        
-        TweenMax.to($(".folios_page"), 0, {perspective:2000});
-
-        foliosanim1delay.insert(TweenMax.to({x:0}, pagedelay, {x:0}));
-        foliosanim1delay.append(TweenMax.delayedCall(0, function(){
-            console.log("foliosanim1.restart");
-            foliosanim1.restart();
-        }));
-
-        foliosanim1.insert(TweenMax.delayedCall(0, function(){ 
-            console.log("foliosanim1 started");
-            $("#folios_page1").show(); 
-            $("#folios_page1").css("pointer-events", "visible");
-            $("#folios_page2").css("pointer-events", "none");
-            if(isinitcycle){
-                TweenMax.set($("#folios_page2>div"), {alpha:0});
-                TweenMax.set($("#folios_page1>div"), {alpha:0});
-            }
-            $("#folios_page2>div").unbind('mouseover mouseout');
-            $("#folios_page2").unbind('mouseover mouseout'); 
-        }));
-        $("#folios_page2>div").each(function(ind,ele){
-            var left = parseInt($(ele).css('left'));
-            var randomdelay = Math.random() * randomdelayk;
-            foliosanim1.insert(TweenMax.fromTo($(ele), tweenduration, {alpha:1}, {alpha:0}), (pagewidth-left)*leftdelayk + randomdelay + alphatweendelay);
-            foliosanim1.insert(TweenMax.fromTo($(ele), tweenduration, {rotationY:0}, {rotationY:-180, transformOrigin:"center center"}), (pagewidth-left)*leftdelayk + randomdelay);
-        });
-
-        $("#folios_page1>div").each(function(ind,ele){
-            var left = parseInt($(ele).css('left'));
-            var randomdelay = Math.random() * randomdelayk;
-            foliosanim1.insert(TweenMax.fromTo($(ele), tweenduration, {alpha:0}, {alpha:1, ease:Quad.easeIn}), pagedelay2 + 0.5 + left*leftdelayk + randomdelay + alphatweendelay);
-            foliosanim1.insert(TweenMax.fromTo($(ele), tweenduration, {rotationY:-200}, {rotationY:0, transformOrigin:"center center"}), pagedelay2 + 0.5 + left*leftdelayk + randomdelay);
-        });
-        foliosanim1.append(TweenMax.delayedCall(0, function(){
-            console.log("foliosanim2delay restart");
-            foliosanim2delay.restart();
-            $("#folios_page1>div").hover(function(){
-                    foliosanim2delay.pause();
-            });
-            $("#folios_page1").hover(
-                function(){
-                    foliosanim2delay.pause();
-                }, 
-                function(){
-                    foliosanim2delay.resume();
-                }
-            );
-        }));
-
-        foliosanim2delay.insert(TweenMax.to({x:0}, pagedelay, {x:0}));
-        foliosanim2delay.append(TweenMax.delayedCall(0, function(){
-            console.log("foliosanim2 restart");
-            foliosanim2.restart();
-        }));
-
-        foliosanim2.insert(TweenMax.delayedCall(0, function(){ 
-            console.log("foliosanim2 started");
-            $("#folios_page2").show(); 
-            $("#folios_page1").css("pointer-events", "none");
-            $("#folios_page2").css("pointer-events", "visible");
-            $("#folios_page1>div").unbind('mouseover mouseout');
-            $("#folios_page1").unbind('mouseover mouseout');
-        }));
-        $("#folios_page1>div").each(function(ind,ele){
-            var left = parseInt($(ele).css('left'));
-            var randomdelay = Math.random() * randomdelayk;
-            foliosanim2.insert(TweenMax.fromTo($(ele), tweenduration, {alpha:1}, {alpha:0}), left*leftdelayk + randomdelay + alphatweendelay);
-            foliosanim2.insert(TweenMax.fromTo($(ele), tweenduration, {rotationY:0}, {rotationY:180, transformOrigin:"center center"}), left*leftdelayk + randomdelay);
-        });
-
-        $("#folios_page2>div").each(function(ind,ele){
-            var left = parseInt($(ele).css('left'));
-            var randomdelay = Math.random() * randomdelayk;
-            foliosanim2.insert(TweenMax.fromTo($(ele), tweenduration, {alpha:0}, {alpha:1, ease:Quad.easeIn}), pagedelay2 + (pagewidth-left)*leftdelayk + randomdelay + alphatweendelay);
-            foliosanim2.insert(TweenMax.fromTo($(ele), tweenduration, {rotationY:200}, {rotationY:0, transformOrigin:"center center"}), pagedelay2 + (pagewidth-left)*leftdelayk + randomdelay);
-        });
-
-        foliosanim2.append(TweenMax.delayedCall(0, function(){
-            console.log("foliosanim1delay restart");
-            isinitcycle = false;
-            foliosanim1delay.restart();
-            $("#folios_page2>div").hover(function(){
-                foliosanim1delay.pause();
-            });
-            $("#folios_page2").hover(
-                function(){
-                    console.log("folios_page2 hover");
-                    foliosanim1delay.pause();
-                }, 
-                function(){
-                    console.log("folios_page2 hover");
-                    foliosanim1delay.resume();
-                }
-            );
-        }));
-
-        foliosanim1.restart();
-    }
-    function stopFoliosAnimation() {
-        foliosanim1delay.kill();
-        foliosanim1.kill();
-        foliosanim2delay.kill();
-        foliosanim2.kill();
-    }
-    controllers.folios.onShow = function(){
-        
-        preloadFoliosImage();
-    };
-    controllers.folios.onHide = function(){
-        stopFoliosAnimation();
-    };
-    /*contact*/
-    
-    
     
     /* resize */
     function onResize(){
@@ -857,36 +875,18 @@ $(document).ready(function(){
     }
     $(window).resize(onResize);
     /* */
-    var title = document.title;
-
-    // Simple log
-    var log = function(msg) {
-        console.log(msg);
-    };
-    // Default tracker mock
-    var track = function() {
-        log('track: ' + arguments[0]);
-    };
-
-    // Serialization utility
-    var serialize = function(obj, re) {
-        var result = [];
-        $.each(obj, function(i, val) {
-            if ((re && re.test(i)) || !re)
-                result.push(i + ': ' + (typeof val == 'object' ? val.join 
-                    ? '\'' + val.join(', ') + '\'' : serialize(val) : '\'' + val + '\''));
-        });
-        return '{' + result.join(', ') + '}';
-    };
+    
+    
+    var lastProcessedEvent = null;
     $.address.init(function(event) {
-        
+        /*
         log('init: ' + serialize({
             value: $.address.value(), 
             path: $.address.path(),
             pathNames: $.address.pathNames(),
             parameterNames: $.address.parameterNames(),
             queryString: $.address.queryString()
-        }));
+        }));//*/
         
         $('a').each(function() {
             var alink = $(this).attr('href') || "";
@@ -897,11 +897,13 @@ $(document).ready(function(){
         });
         $.each(controllers, function(name,controller){
             if(controller.processPathNames(event.pathNames, event.value)){
+                lastProcessedEvent = event;
                 return false;   
             }
         });
         
     }).bind('change', function(event) {
+        /*
         var names = $.map(event.pathNames, function(n) {
             return n.substr(0, 1).toUpperCase() + n.substr(1);
         }).concat(event.parameters.id ? event.parameters.id.split('.') : []);
@@ -909,6 +911,8 @@ $(document).ready(function(){
         var match = links.length ? links.shift() + ' ' + links.join('.') : 'Home';
         log('change: ' + serialize(event, /parameters|parametersNames|path|pathNames|queryString|value/));
         //$.address.title(names.length == 1 ? names[0] : names.join(' - '));
+        //*/
+        if(lastProcessedEvent && lastProcessedEvent.value == event.value) return;
         
         $('a').each(function() {
             var alink = $(this).attr('href') || "";
@@ -917,16 +921,20 @@ $(document).ready(function(){
                 $(this).toggleClass('selected', alink  == event.value);
             }
         });
-        
+        //console.log((lastProcessedEvent?lastProcessedEvent.value:'') + '>' + event.value);
+        var processed = false;
         $.each(controllers, function(name,controller){
             if(controller.processPathNames(event.pathNames, event.value)){
+                lastProcessedEvent = event;
+                processed = true;
                 return false;   
             }
-        });//*/
+        });
+        //if(!processed){
+        //    $.address.value(lastProcessedEvent.value);
+        //}
     });
-    
-    
-    
+
     /* post init */
     $(window).trigger('resize');
     $('#mainContainer').fadeIn();

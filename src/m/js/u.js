@@ -47,3 +47,22 @@ Filters.filterImage = function(filter, image, var_args) {
   obj.context.putImageData(obj.filteredImgData, 0, 0);
   return obj;
 };
+// Simple log
+var log = function(msg) {
+    console.log(msg);
+};
+// Default tracker mock
+var track = function() {
+    log('track: ' + arguments[0]);
+};
+
+// Serialization utility
+var serialize = function(obj, re) {
+    var result = [];
+    $.each(obj, function(i, val) {
+        if ((re && re.test(i)) || !re)
+            result.push(i + ': ' + (typeof val == 'object' ? val.join 
+                ? '\'' + val.join(', ') + '\'' : serialize(val) : '\'' + val + '\''));
+    });
+    return '{' + result.join(', ') + '}';
+};
